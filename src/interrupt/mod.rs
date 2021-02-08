@@ -1,14 +1,16 @@
 
 
 
-
+mod timer;
 mod handler;
 mod context;
 
 pub fn init()
 {
-	println!("In the begin of mod.rs => init()");
+	println!("Beginnng of interrupt/mod.rs => init()");
 	handler::init();
-	println!("mod interrupt initialized!");
-	println!("In the end of mod.rs => init()");
+	println!("Interrupt initialized after interrupt/mod.rs => handler::init()");
+	timer::init();
+	println!("Timer initialized after interrupt/mod.rs => timer::init()");
+	println!("End of interrupt/mod.rs => init()");
 }

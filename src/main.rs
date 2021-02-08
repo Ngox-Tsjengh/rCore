@@ -32,18 +32,17 @@ global_asm!(include_str!("entry.asm"));
 ///
 /// 在 `_start` 为我们进行了一系列准备之后，这是第一个被调用的 Rust 函数
 #[no_mangle]
-pub extern "C" fn rust_main() -> ! {
+pub extern "C" fn rust_main() {
 	// 在屏幕上输出 "OK\n" ，随后进入死循环
 	println!("Hello World!");
 
 	interrupt::init();
 
-	println!("In main.rs => rust_main() after interrupt::init()");
+	println!("In main.rs => rust_main()");
 
 	unsafe{
-		llvm_asm!("ebreak"::::"volatile");
+		llvm_asm!("ebreak"/*::::"volatile"*/);
 	};
 
-	unreachable!();
-
+	println!("End of main.rs => rust_main()");
 }

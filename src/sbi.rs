@@ -39,9 +39,11 @@ pub fn console_getchar() -> usize {
 	    sbi_call(SBI_CONSOLE_GETCHAR, 0, 0, 0)
 }
 
-
 pub fn shutdown() -> ! {
 	    sbi_call(SBI_SHUTDOWN, 0, 0, 0);
 	    unreachable!()
 }
 
+pub fn set_timer(time: usize){
+		sbi_call(SBI_SET_TIMER,time,0,0);
+}

@@ -7,5 +7,5 @@ pub struct Context
 {
 	pub x:[usize; 32],
 	pub sstatus: Sstatus,
-	pub spec:usize
+	pub sepc:usize
 }
