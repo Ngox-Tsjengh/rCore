@@ -36,6 +36,7 @@ pub fn handle_interrupt(context: &mut Context, scause: Scause, stval: usize) {
         Trap::Exception(Exception::Breakpoint) => breakpoint(context),
         // 时钟中断
         Trap::Interrupt(Interrupt::SupervisorTimer) => supervisor_timer(context),
+		Trap::Exception(Exception::LoadFault) => load_fault(context),
         // 其他情况，终止当前线程
         _ => fault(context, scause, stval),
     };
@@ -47,11 +48,22 @@ pub fn handle_interrupt(context: &mut Context, scause: Scause, stval: usize) {
 fn breakpoint(context: &mut Context) {
     println!("Breakpoint at 0x{:x}", context.sepc);
     context.sepc += 2;
+    //context.sepc = 0; //+= 2;
 }
 
 /// 处理时钟中断
 fn supervisor_timer(_context: &mut Context) {
     timer::tick();
+	//_context.sepc = 0;
+}
+
+fn load_fault(context: &mut Context){
+	if context.sepc == 0{
+		println!("Succed accessing 0x0");
+	}else{
+		println!("LoadFault at 0x{:x}", context.sepc);
+	}
+	context.sepc += 2;
 }
 
 /// 出现未能解决的异常

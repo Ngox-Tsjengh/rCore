@@ -1,6 +1,5 @@
 use riscv::register::{sstatus::Sstatus, scause::Scause};
 
-
 #[repr(C)]
 #[derive(Debug)]
 pub struct Context

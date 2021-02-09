@@ -65,6 +65,7 @@ __interrupt:
     # stval: usize
     csrr    a2, stval
     jal handle_interrupt
+	#jr	x0
 
     .globl __restore
 # 离开中断
